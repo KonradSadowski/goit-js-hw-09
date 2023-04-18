@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
 // referencje
 const datePicker = document.getElementById(`datetime-picker`);
 const startBtn = document.querySelector(`[data-start]`);
@@ -7,7 +8,6 @@ const daysEl = document.querySelector(`[data-days]`);
 const hoursEl = document.querySelector(`[data-hours]`);
 const minutesEl = document.querySelector(`[data-minutes]`);
 const secondsEl = document.querySelector(`[data-seconds]`);
-
 
 const options = {
   enableTime: true,
@@ -18,7 +18,11 @@ const options = {
     const selectedDate = selectedDates[0];
     const today = new Date();
     if (selectedDate < today) {
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future', {
+        timeout: 10000,
+        position: 'right-top',
+        clickToClose: true,
+      });
       startBtn.disabled = true;
     } else {
       startBtn.disabled = false;
